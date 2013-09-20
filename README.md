@@ -22,3 +22,6 @@ License GPL
 
 ## Divers
 Avec une montre Pebble (http://www.getpebble.com) et PebbleTasker (https://play.google.com/store/apps/details?id=com.kodek.pebbletasker), il est possible d'executer la tâche depuis la montre puis de faire remonter la notification des résultats sur la montre.
+
+## Crédits
+Haversine from Wayne Dyck (http://www.platoscave.net/blog/2009/oct/5/calculate-distance-latitude-longitude-python/)
