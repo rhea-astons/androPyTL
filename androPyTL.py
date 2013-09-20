@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 # Notifie des prochains bus et metros des transports publics
-# lausannois (http://www.t-l.ch) à la station la plus proche
-# de la position GPS fournie par Android, via Tasker (http://http://tasker.dinglisch.net/)
+# lausannois a la station la plus proche de la position GPS
+# fournie par Android, via Tasker
 # 
 # Copyleft 2013 Raphael Santos
 # License GPL
@@ -37,9 +37,9 @@ droid = android.Android()
 try:
   me = droid.getIntent().result[u'extras'][u'%LOC'].split(',')
 except:
-  notif_title = "androPyTL - Error"
-  notif_content = "GPS position missing"
-  droid.notify(notif_title, notif_content)
+  notif = "androPyTL - Error\n"
+  notif += "GPS position missing"
+  droid.notify("androPyTL", notif)
   sys.exit(1)
 
 me = [float(me[0]), float(me[1])]
@@ -53,16 +53,11 @@ for idx in range(len(stations)):
     n_station_idx = idx
 station = stations[n_station_idx]
 
-notif_title = "androPyTL - " + station['name']
-notif_content = ""
+notif = station['name'] + ":\n"
 
 horaires = httpJSON(URL_HORAIRES.replace('STATION_ID', station['id']))
 horaires_tri = sorted(horaires, key=lambda k: k['time_sort']) 
 for horaire in horaires_tri:
-  notif_content += horaire['line'] + ">" + horaire['destination'] + ": " + horaire['time'] + "\n"
+  notif += horaire['line'] + ">" + horaire['destination'] + ": " + horaire['time'] + "\n"
 
-droid.notify(notif_title, notif_content)
-
-#DEBUG
-#print notif_title
-#print notif_content
+droid.notify("androPyTL", notif)
